@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "635f7aba-440a-4c89-a5ba-a61e8a4a4940",
+		"name": "Application Tracking Ststem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Opening Management",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Given that there is a new opening when I create an opening the new opening gets created.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.jobDescription).to.eql(\"Core Java, Spring Boot Microservices \");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"role\" : \"Lead\",\r\n  \"jobDescription\" : \"Core Java, Spring Boot Microservices \",\r\n  \"jobType\": \"PERMANENT\" ,\r\n  \"startExperienceYears\" : 12,\r\n  \"endExperienceYears\" : 18,\r\n  \"ctcStart\" : 30,\r\n  \"ctcEnd\" : 50,\r\n  \"currencyCode\" : \"INR\",\r\n  \"attributes\" : {\r\n    \"C1\" : \"SYD\",\r\n    \"C3\" : \"YDV\"\r\n    \r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/jobopenings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jobopenings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Given that there are existing opening when I attempt to view the openings then I am able to view all openings.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].jobDescription).to.eql(\"Core Java, Spring Boot Microservices \");\r",
+									"    pm.collectionVariables.set(\"id\", jsonData[0].id);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/jobopenings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jobopenings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Given that there is an existing opening when I want to update it then I am able to update it\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.role).to.eql(\"LeadUpdateTest\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Transfer-Encoding",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{id}},\r\n  \"role\" : \"LeadUpdateTest\",\r\n  \"jobDescription\" : \"Core Java, Spring Boot Microservices \",\r\n  \"jobType\": \"PERMANENT\" ,\r\n  \"startExperienceYears\" : 12,\r\n  \"endExperienceYears\" : 18,\r\n  \"ctcStart\" : 30,\r\n  \"ctcEnd\" : 50,\r\n  \"currencyCode\" : \"INR\",\r\n  \"attributes\" : {\r\n    \"C1\" : \"SYD\",\r\n    \"C3\" : \"YDV\"\r\n    \r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/jobopenings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"jobopenings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Candidate Management",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Given that there is an opening when I register a candidate for the same then I am able to register the new candidate.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).to.eql(\"test@email.com\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"email\" : \"test@email.com\",\r\n  \"firstName\" : \"sourabh\",\r\n  \"lastName\" : \"sourabh\"\r\n    \r\n  \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Given that there are candidates when I want to filter a specific onethen I am able to filter him/her\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0].email).to.eql(\"test@email.com\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/candidates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
